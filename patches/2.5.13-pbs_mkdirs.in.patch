@@ -1,0 +1,30 @@
+--- buildutils/pbs_mkdirs.in.orig	2010-12-06 16:44:00.000000000 -0600
++++ buildutils/pbs_mkdirs.in	2011-09-02 14:32:07.000000000 -0500
+@@ -303,13 +303,20 @@
+ 	# and a link to more information in the documentation
+ 	if [ ! -e $PBS_NODES_FILE ]; then
+ 	    rm -f $PBS_NODES_FILE > /dev/null 2>&1
+-	    echo -e "## This is the TORQUE server \"nodes\" file." \
+-	    "\n## \n## To add a node, enter its hostname, optional processor count (np=)," \
+-	    "\n## and optional feature names.\n##"  \
+-	    "\n## Example:\n##    host01 np=8 featureA featureB"  \
+-	    "\n##    host02 np=8 featureA featureB\n##" \
+-	    "\n## for more information, please visit:\n##"  \
+-	    "\n## http://www.clusterresources.com/torquedocs/nodeconfig.shtml\n" > $PBS_NODES_FILE && \
++        {
++	    echo '## This is the TORQUE server "nodes" file.'
++	    echo '## '
++	    echo '## To add a node, enter its hostname, optional processor count (np=),'
++	    echo '## and optional feature names.'
++	    echo '##'
++	    echo '## Example:'
++	    echo '##    host01 np=8 featureA featureB'
++	    echo '##    host02 np=8 featureA featureB'
++	    echo '##'
++	    echo '## for more information, please visit:'
++	    echo '##'
++	    echo '## http://www.clusterresources.com/torquedocs/nodeconfig.shtml' 
++        } > $PBS_NODES_FILE && \
+ 	    chmod 644 $PBS_NODES_FILE || return 1
+ 
+ 	fi

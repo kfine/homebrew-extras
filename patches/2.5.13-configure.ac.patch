@@ -1,0 +1,30 @@
+--- configure.ac.orig	2012-11-02 11:32:55.000000000 -0700
++++ configure.ac	2012-11-02 11:47:10.000000000 -0700
+@@ -710,10 +710,15 @@
+ esac
+ 
+ dnl We need pthreads by default in the MOM
+-  AC_CHECK_LIB(pthread, pthread_create, MOMLIBS="$MOMLIBS -lpthread -lrt")
++  AC_CHECK_LIB(pthread, pthread_create, MOMLIBS="$MOMLIBS -lpthread")
+ 
+ 
+-dnl
++dnl u_threadpool.c falls back on gettimeofday() if clock_gettime() is unavailable
++  AC_CHECK_FUNC(clock_gettime, AC_DEFINE[HAVE_CLOCK_GETTIME], 
++    AC_CHECK_LIB(rt, clock_gettime,
++      [AC_DEFINE[HAVE_CLOCK_GETTIME]
++        MOMLIBS="$MOMLIBS -lrt"], []))
++nl
+ dnl enable libjob job_create support
+ dnl attempt to find a location to install job_create support for CRAY
+ dnl
+@@ -1081,7 +1086,7 @@
+ torque_cv_have_cmsg="no"
+   AC_TRY_COMPILE([
+   #ifdef HAVE_SYS_UCRED_H
+-  #include <sys/ucred.h>
++  #include <sys/socket.h>
+   #endif
+   #ifdef HAVE_SYS_SOCKET_H
+   #define _GNU_SOURCE 1
+

@@ -1,0 +1,11 @@
+--- src/resmom/darwin/mom_mach.c.orig	2012-11-01 15:39:48.000000000 -0700
++++ src/resmom/darwin/mom_mach.c	2012-11-01 15:39:58.000000000 -0700
+@@ -127,7 +127,7 @@
+ #include <sys/vnode.h>
+ #include <sys/sysctl.h>
+ #include <sys/vmmeter.h>
+-#include <ufs/ufs/quota.h>
++#include <sys/quota.h>
+ #include <net/if.h>
+ #include <ifaddrs.h>
+ #include <signal.h>
