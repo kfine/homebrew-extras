@@ -1,35 +1,29 @@
---- src/lib/Libutils/u_threadpool.c.orig	2012-11-02 11:25:46.000000000 -0700
-+++ src/lib/Libutils/u_threadpool.c	2012-11-02 11:27:40.000000000 -0700
-@@ -80,6 +80,9 @@
+--- src/lib/Libutils/u_threadpool.c.orig	2013-12-04 16:15:07.000000000 -0700
++++ src/lib/Libutils/u_threadpool.c	2013-12-04 16:17:50.000000000 -0700
+@@ -80,6 +80,7 @@
  
  #include <errno.h>
  #include <signal.h>
-+#ifndef HAVE_CLOCK_GETTIME
 +#include <sys/time.h>
-+#endif
  #include <time.h>
  #include "threadpool.h"
  #include "utils.h"
-@@ -207,6 +210,9 @@
+@@ -206,6 +207,7 @@
    void         *arg;
    tp_work_t    *mywork;
    tp_working_t  working;
-+#ifndef HAVE_CLOCK_GETTIME
 +  struct timeval tv;
-+#endif
  
    struct timespec   ts;
  
-@@ -243,7 +249,13 @@
+@@ -241,7 +243,9 @@
          }
        else
          {
-+	#ifndef HAVE_CLOCK_GETTIME
-+       gettimeofday(&tv, NULL);
-+       ts.tv_sec = tv.tv_sec;
-+       ts.tv_nsec = 0;
-+	#else
-         clock_gettime(CLOCK_REALTIME,&ts);
-+	#endif
+-        clock_gettime(CLOCK_REALTIME,&ts);
++         gettimeofday(&tv, NULL);
++         ts.tv_sec = tv.tv_sec;
++         ts.tv_nsec = 0;
          ts.tv_sec += request_pool->tp_max_idle_secs;
          rc = pthread_cond_timedwait(&request_pool->tp_waiting_work,&request_pool->tp_mutex,&ts);
+ 
