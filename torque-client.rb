@@ -1,6 +1,6 @@
 require 'formula'
 
-class Torque < Formula
+class TorqueClient < Formula
   homepage 'http://www.adaptivecomputing.com/products/open-source/torque/'
   url 'http://www.adaptivecomputing.com/index.php?wpfb_dl=1643'
   version '2.5.13'
