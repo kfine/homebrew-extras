@@ -21,7 +21,6 @@ class TorqueClient < Formula
 
     system "make"
     system "make", "install_clients"
-		system "chmod", "4755 #{sbin}/pbs_iff"
   end
 
   def patches
@@ -33,4 +32,17 @@ class TorqueClient < Formula
   test do
     system "#{bin}/qstat", "--version"
   end
+	
+  def caveats; <<-EOS.undent
+    pbs_iff is used by qstat and requires superuser privileges. You can either run the program
+    via `sudo`, or change its ownership to root and set the setuid bit:
+
+      sudo chown root:wheel #{sbin}/pbs_iff
+      sudo chmod u+s #{sbin}/pbs_iff
+
+    In any case, you should be certain that you trust the software you
+    are executing with elevated privileges.
+    EOS
+  end
+
 end
