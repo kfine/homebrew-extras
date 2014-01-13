@@ -21,6 +21,7 @@ class TorqueClient < Formula
 
     system "make"
     system "make", "install_clients"
+		system "chmod", "4755 #{sbin}/pbs_iff"
   end
 
   def patches
