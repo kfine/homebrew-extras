@@ -13,17 +13,17 @@ class Oof2 < Formula
   depends_on 'pkg-config'
 
   if MacOS.version >= :mavericks
-	  depends_on 'apple-gcc42'
-		fails_with :llvm do
-			cause <<-EOS.undent
-				Const failure or whatever
-				EOS
-		end
-		fails_with :clang do
-			cause <<-EOS.undent
-				Const failure or whatever
-				EOS
-		end
+    depends_on 'apple-gcc42'
+    fails_with :llvm do
+      cause <<-EOS.undent
+      Const failure or whatever
+      EOS
+    end
+    fails_with :clang do
+      cause <<-EOS.undent
+      Const failure or whatever
+      EOS
+    end
   end
   def install
     system "python", "setup.py", "build", "--skip-swig", "install", "--prefix=#{prefix}" 
