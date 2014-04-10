@@ -2,15 +2,15 @@ require 'formula'
 
 class Oof2 < Formula
   homepage 'http://www.ctcms.nist.gov/oof/oof2/'
-  url 'http://www.ctcms.nist.gov/oof/oof2/source/oof2-2.1.9.tar.gz' 
-  md5 '6363ef9105949dcdc0c33ea58207d93c'
+  url 'http://www.ctcms.nist.gov/oof/oof2/source/oof2-2.1.9.tar.gz'
+  sha256 '7c623974355ec2a89cb49e08d4b0c39ae5d41952ee5d2aea9f5d6d5ab0d636f1'
 
-  depends_on :python 
-  depends_on 'homebrew/python/numpy' 
+  depends_on :python
+  depends_on 'homebrew/python/numpy'
   depends_on 'pygtk'
   depends_on 'libgnomecanvas'
   depends_on 'imagemagick'
-  depends_on 'pkg-config'
+  depends_on 'pkg-config' => :build
 
   if MacOS.version >= :mavericks
     depends_on 'apple-gcc42'
@@ -26,6 +26,6 @@ class Oof2 < Formula
     end
   end
   def install
-    system "python", "setup.py", "build", "--skip-swig", "install", "--prefix=#{prefix}" 
+    system "python", "setup.py", "build", "--skip-swig", "install", "--prefix=#{prefix}"
   end
 end
