@@ -13,7 +13,7 @@ class Oof2 < Formula
   depends_on 'pkg-config'
 
   if MacOS.version >= :mavericks
-	  depends_on apple-gcc42
+	  depends_on 'apple-gcc42'
 		fails_with :llvm do
 			cause <<-EOS.undent
 				Const failure or whatever
