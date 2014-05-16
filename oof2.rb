@@ -11,6 +11,19 @@ class Oof2 < Formula
   depends_on 'libgnomecanvas'
   depends_on 'imagemagick'
   depends_on 'pkg-config' => :build
+  if MacOS.version >= :mavericks
+    depends_on 'homebrew/versions/gcc'
+    fails_with :llvm do
+      cause <<-EOS.undent
+      Const failure or whatever
+      EOS
+    end
+    fails_with :clang do
+      cause <<-EOS.undent
+      Const failure or whatever
+      EOS
+    end
+  end
 
   def install
     system "python", "setup.py", "build", "--skip-swig", "install", "--prefix=#{prefix}"
